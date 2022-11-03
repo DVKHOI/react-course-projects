@@ -46,8 +46,8 @@ function App() {
         <h2 className="mb-10 text-3xl font-bold text-white capitalize">
           Now playing
         </h2>
-        <div className="movie-list">
-          <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
+        <div className="grid grid-cols-4 gap-10 movie-list">
+          <Swiper>
             <SwiperSlide>
               <MovieCard></MovieCard>
             </SwiperSlide>

@@ -1,8 +1,5 @@
 import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import MovieCard from "./components/movie/MovieCard";
-import "swiper/scss";
 function App() {
   return (
     <Fragment>
@@ -10,7 +7,7 @@ function App() {
         <span className="text-primary">Home</span>
         <span>Movies</span>
       </header>
-      <section className="banner h-[500px] page-container mb-20">
+      <section className="banner h-[500px] page-container pb-10">
         <div className="relative w-full h-full bg-white rounded-lg">
           <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
           <img
@@ -42,43 +39,10 @@ function App() {
           </div>
         </div>
       </section>
-      <section className="pb-20 movies-layout page-container">
+      <section className="mb-10 movies-layout page-container">
         <h2 className="mb-10 text-3xl font-bold text-white capitalize">
           Now playing
         </h2>
-        <div className="movie-list">
-          <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-          </Swiper>
-        </div>
-      </section>
-      <section className="pb-20 movies-layout page-container">
-        <h2 className="mb-10 text-3xl font-bold text-white ">
-          Top rated movies
-        </h2>
         <div className="grid grid-cols-4 gap-10 movie-list">
           <div className="p-3 rounded-lg movie-card bg-slate-800">
             <img
@@ -89,33 +53,11 @@ function App() {
             <h3 className="mb-3 text-xl font-bold text-white ">
               Spiderman: Homecoming
             </h3>
-            <div className="flex items-center justify-between mb-10 text-sm text-white opacity-50">
+            <div className="flex items-center justify-between mb-5 text-sm text-white">
               <span>2017</span>
               <span>7.4</span>
             </div>
-            <button className="w-full px-6 py-3 font-medium text-white capitalize rounded-lg bg-primary">
-              Watch Now
-            </button>
-          </div>
-        </div>
-      </section>
-      <section className="pb-20 movies-layout page-container">
-        <h2 className="mb-10 text-3xl font-bold text-white ">Top trending</h2>
-        <div className="grid grid-cols-4 gap-10 movie-list">
-          <div className="p-3 rounded-lg movie-card bg-slate-800">
-            <img
-              className="w-full h-[250px] rounded-lg object-cover mb-3"
-              src="https://image-cdn.hypb.st/https%3A%2F%2Fhypebeast.com%2Fimage%2F2022%2F05%2Fsony-ceo-tom-rothman-fourth-spider-man-film-updates-tom-holland-zendaya-marvel-mcu-000.jpg?w=960&cbr=1&q=90&fit=max"
-              alt=""
-            />
-            <h3 className="mb-3 text-xl font-bold text-white ">
-              Spiderman: Homecoming
-            </h3>
-            <div className="flex items-center justify-between mb-10 text-sm text-white opacity-50">
-              <span>2017</span>
-              <span>7.4</span>
-            </div>
-            <button className="w-full px-6 py-3 font-medium text-white capitalize rounded-lg bg-primary">
+            <button className="w-full px-6 py-3 font-medium text-white rounded-lg bg-primary">
               Watch Now
             </button>
           </div>

@@ -1,0 +1,49 @@
+import { Fragment } from "react";
+import { NavLink } from "react-router-dom";
+function App() {
+  return (
+    <Fragment>
+      <header className="flex items-center justify-center mb-10 text-white header gap-x-5">
+        <span className="text-primary">Home</span>
+        <span>Movies</span>
+      </header>
+      <section className="banner h-[400px] page-container">
+        <div className="relative w-full h-full bg-white rounded-lg">
+          <div className="overlay absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.5)] to-[rgba(0,0,0,0.5)] rounded-lg"></div>
+          <img
+            className="object-cover w-full h-full rounded-lg "
+            src="https://www.cnet.com/a/img/resize/3d224f21651f9747f611bdaaa9a02c16486c71a4/hub/2021/12/24/aa266356-f4e0-4498-a799-f827efe36ed5/spider-man-no-way-home-new-poster-1200.jpg?auto=webp&fit=crop&height=675&width=1200"
+            alt=""
+          />
+          <div className="absolute w-full text-white left-5 bottom-5">
+            <h2 className="mb-5 text-5xl font-bold">Spider man: No Way Home</h2>
+            <div className="flex items-center justify-start mb-5 gap-x-3">
+              <span className="px-4 py-2 border border-white rounded-lg">
+                Action
+              </span>
+              <span className="px-4 py-2 border border-white rounded-lg">
+                Adventure
+              </span>
+              <span className="px-4 py-2 border border-white rounded-lg">
+                Drama
+              </span>
+            </div>
+            <div className="flex flex-row gap-x-5">
+              <button className="px-6 py-2 font-medium rounded-lg bg-primary">
+                Watch Now
+              </button>
+              <button className="px-4 py-2 text-3xl font-medium bg-gray-500 rounded-lg">
+                +
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="movies-layout page-container ">
+        <h2 className="text-2xl font-bold text-white capitalize"></h2>
+      </section>
+    </Fragment>
+  );
+}
+
+export default App;

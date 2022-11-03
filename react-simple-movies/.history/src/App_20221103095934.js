@@ -1,8 +1,5 @@
 import { Fragment } from "react";
 import { NavLink } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import MovieCard from "./components/movie/MovieCard";
-import "swiper/scss";
 function App() {
   return (
     <Fragment>
@@ -46,39 +43,6 @@ function App() {
         <h2 className="mb-10 text-3xl font-bold text-white capitalize">
           Now playing
         </h2>
-        <div className="movie-list">
-          <Swiper grabCursor={true} spaceBetween={40} slidesPerView={"auto"}>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-            <SwiperSlide>
-              <MovieCard></MovieCard>
-            </SwiperSlide>
-          </Swiper>
-        </div>
-      </section>
-      <section className="pb-20 movies-layout page-container">
-        <h2 className="mb-10 text-3xl font-bold text-white ">
-          Top rated movies
-        </h2>
         <div className="grid grid-cols-4 gap-10 movie-list">
           <div className="p-3 rounded-lg movie-card bg-slate-800">
             <img
@@ -100,7 +64,9 @@ function App() {
         </div>
       </section>
       <section className="pb-20 movies-layout page-container">
-        <h2 className="mb-10 text-3xl font-bold text-white ">Top trending</h2>
+        <h2 className="mb-10 text-3xl font-bold text-white ">
+          Top rated movies
+        </h2>
         <div className="grid grid-cols-4 gap-10 movie-list">
           <div className="p-3 rounded-lg movie-card bg-slate-800">
             <img
