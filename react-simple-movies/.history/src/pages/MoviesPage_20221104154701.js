@@ -5,6 +5,7 @@ import MovieCard from "../components/movie/MovieCard";
 import { fetcher } from "../config";
 import useDebounce from "../hooks/useDebounce";
 
+const pageCount = 5;
 const itemsPerPage = 20;
 const MoviesPage = () => {
   const [pageCount, setPageCount] = useState(0);
@@ -23,7 +24,7 @@ const MoviesPage = () => {
   useEffect(() => {
     if (filterDebounce) {
       setUrl(
-        `https://api.themoviedb.org/3/search/movie?api_key=00d6e8bb848cf1aab363de510f7d4d22&page=${nextPage}&query=${filterDebounce}`
+        `https://api.themoviedb.org/3/search/movie?api_key=00d6e8bb848cf1aab363de510f7d4d22&query=${filterDebounce}&page=${nextPage}`
       );
     } else {
       setUrl(
@@ -34,11 +35,14 @@ const MoviesPage = () => {
   const movies = data?.results || [];
 
   useEffect(() => {
-    if (!data || !data.total_results) return;
-    setPageCount(Math.ceil(data.total_results / itemsPerPage));
+    // Fetch items from another resources.
+    if (!data || !data.total_pages) return;
+    setPageCount(Math.ceil(data.total_pages / itemsPerPage));
   }, [data, itemOffset]);
+
+  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % data.total_results;
+    const newOffset = (event.selected * itemsPerPage) % data.total_pages;
 
     setItemOffset(newOffset);
     setNextPage(event.selected + 1);
@@ -83,18 +87,15 @@ const MoviesPage = () => {
             <MovieCard key={item.id} item={item}></MovieCard>
           ))}
       </div>
-      <div className="mt-10">
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel="Next >"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel="< Previous"
-          renderOnZeroPageCount={null}
-          className="pagination"
-        />
-      </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}
+      />
     </div>
   );
 };

@@ -23,7 +23,7 @@ const MoviesPage = () => {
   useEffect(() => {
     if (filterDebounce) {
       setUrl(
-        `https://api.themoviedb.org/3/search/movie?api_key=00d6e8bb848cf1aab363de510f7d4d22&page=${nextPage}&query=${filterDebounce}`
+        `https://api.themoviedb.org/3/search/movie?api_key=00d6e8bb848cf1aab363de510f7d4d22&query=${filterDebounce}&page=${nextPage}`
       );
     } else {
       setUrl(
