@@ -31,7 +31,7 @@ const PageNotFound = () => {
   return (
     <PageNotFoundStyles>
       <NavLink to="/">
-        <img srcSet="logo.png 2x " alt="Sneaker-blogging" className="logo" />
+        <img srcSet="/logo.png " alt="Sneaker-blogging" className="logo" />
       </NavLink>
       <h1 className="heading">Oops! Page bot found</h1>
       <NavLink to="/" className="back">

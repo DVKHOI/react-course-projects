@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Button } from "../components/button";
 import { Field } from "../components/field";
-import { IconEyeClose, IconEyeOpen } from "../components/icon";
 import { Input } from "../components/input";
-import { Lable } from "../components/lable";
 import { useAuth } from "../context/auth-context";
 import AuthenticationPage from "./AuthenticationPage";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { async } from "@firebase/util";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
+import Button from "../components/button/Button";
+import ToggleInputPassword from "../components/input/ToggleInputPassword";
+import { Label } from "../components/label";
 
 const schema = yup.object({
   email: yup
@@ -28,8 +27,9 @@ const schema = yup.object({
 });
 
 const LoginPage = () => {
-  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
+  const { userInfo } = useAuth();
+
   const {
     handleSubmit,
     control,
@@ -48,7 +48,6 @@ const LoginPage = () => {
       });
     }
   }, [errors]);
-  const { userInfo } = useAuth();
   useEffect(() => {
     document.title = "Login Page";
     if (userInfo?.email) navigate("/");
@@ -68,7 +67,7 @@ const LoginPage = () => {
         autoComplete="off"
       >
         <Field>
-          <Lable htmlFor="email">Email address</Lable>
+          <Label htmlFor="email">Email address</Label>
           <Input
             type="email"
             name="email"
@@ -77,19 +76,8 @@ const LoginPage = () => {
           />
         </Field>
         <Field>
-          <Lable htmlFor="password">Password</Lable>
-          <Input
-            type={showPass ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {!showPass ? (
-              <IconEyeClose onClick={() => setShowPass(true)}></IconEyeClose>
-            ) : (
-              <IconEyeOpen onClick={() => setShowPass(false)}></IconEyeOpen>
-            )}
-          </Input>
+          <Label htmlFor="password">Password</Label>
+          <ToggleInputPassword control={control}></ToggleInputPassword>
         </Field>
         <div className="has-account">
           You not have had an account?{" "}

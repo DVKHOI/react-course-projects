@@ -1,6 +1,7 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { useAuth } from "../../context/auth-context";
 import Button from "../button/Button";
 
 const menuLinks = [
@@ -41,6 +42,7 @@ const HeaderStyles = styled.header`
     align-items: center;
     position: relative;
     font-weight: 500;
+    margin-right: 20px;
   }
   .searech-input {
     flex: 1;
@@ -59,11 +61,26 @@ const HeaderStyles = styled.header`
     right: 25px;
     cursor: pointer;
   }
-  .header-button {
-    margin-left: 20px;
+  @media screen and (max-width: 1023.98px) {
+    .logo {
+      max-width: 30px;
+    }
+    .menu,
+    .search,
+    .header-button,
+    .header-auth {
+      display: none;
+    }
   }
 `;
+
+function getLastName(name) {
+  if (!name) return "User";
+  const length = name.split(" ").length;
+  return name.split(" ")[length - 1];
+}
 const Header = () => {
+  const { userInfo } = useAuth();
   return (
     <HeaderStyles>
       <div className="container">
@@ -115,13 +132,23 @@ const Header = () => {
               </svg>
             </span>
           </div>
-          <Button
-            style={{ maxWidth: "200px" }}
-            height="56px"
-            className="header-button"
-          >
-            Resgiter
-          </Button>
+          {!userInfo ? (
+            <Button
+              style={{ maxWidth: "200px" }}
+              height="56px"
+              className="header-button"
+              to="/resgiter"
+            >
+              Resgiter
+            </Button>
+          ) : (
+            <div className="header-auth">
+              <span>Welcome back </span>
+              <strong className="text-primary">
+                {getLastName(userInfo?.displayName)}
+              </strong>
+            </div>
+          )}
         </div>
       </div>
     </HeaderStyles>

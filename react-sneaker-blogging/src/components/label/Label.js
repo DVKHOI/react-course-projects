@@ -16,7 +16,7 @@ const Lable = ({ htmlFor = "", children, props }) => {
   );
 };
 Lable.propTypes = {
-  htmlFor: PropTypes.string.isRequired,
+  htmlFor: PropTypes.string,
   children: PropTypes.string.isRequired,
 };
 export default Lable;

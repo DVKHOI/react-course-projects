@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Lable } from "../components/lable";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "../components/input";
-import { IconEyeClose, IconEyeOpen } from "../components/icon";
 import { Field } from "../components/field";
-import { Button } from "../components/button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database } from "../firebase/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
+import Button from "../components/button/Button";
+import ToggleInputPassword from "../components/input/ToggleInputPassword";
+import { Label } from "../components/label";
+import slugify from "slugify";
 
 const schema = yup.object({
   fullname: yup.string().required("Please enter your fullname"),
@@ -36,7 +36,6 @@ const ResgiterPage = () => {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-  const [showPass, setShowPass] = useState(false);
   useEffect(() => {
     document.title = "Resgiter Page";
     const arrErroes = Object.values(errors);
@@ -50,15 +49,22 @@ const ResgiterPage = () => {
   const handleResgiter = async (values) => {
     if (!isValid) return;
     await createUserWithEmailAndPassword(auth, values.email, values.password);
-    const colRef = collection(database, "users");
-    await addDoc(colRef, {
-      fullname: values.fullname,
-      email: values.email,
-      password: values.password,
-    });
     await updateProfile(auth.currentUser, {
       displayName: values.fullname,
     });
+    await setDoc(doc(database, "users", auth.currentUser.uid), {
+      fullname: values.fullname,
+      email: values.email,
+      password: values.password,
+      username: slugify(values.fullname, { lower: true }),
+    });
+    // const colRef = collection(database, "users");
+    // await addDoc(colRef, {
+    //   fullname: values.fullname,
+    //   email: values.email,
+    //   password: values.password,
+    // });
+
     toast.success("Resgiter successfully!");
     navigate("/");
   };
@@ -71,7 +77,7 @@ const ResgiterPage = () => {
         autoComplete="off"
       >
         <Field>
-          <Lable htmlFor="fullname">Fullname</Lable>
+          <Label htmlFor="fullname">Fullname</Label>
           <Input
             type="text"
             name="fullname"
@@ -80,7 +86,7 @@ const ResgiterPage = () => {
           />
         </Field>
         <Field>
-          <Lable htmlFor="email">Email address</Lable>
+          <Label htmlFor="email">Email address</Label>
           <Input
             type="email"
             name="email"
@@ -89,19 +95,8 @@ const ResgiterPage = () => {
           />
         </Field>
         <Field>
-          <Lable htmlFor="password">Password</Lable>
-          <Input
-            type={showPass ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            control={control}
-          >
-            {!showPass ? (
-              <IconEyeClose onClick={() => setShowPass(true)}></IconEyeClose>
-            ) : (
-              <IconEyeOpen onClick={() => setShowPass(false)}></IconEyeOpen>
-            )}
-          </Input>
+          <Label htmlFor="password">Password</Label>
+          <ToggleInputPassword control={control}></ToggleInputPassword>
         </Field>
         <div className="has-account">
           You already have an account? <NavLink to={"/login"}>Login</NavLink>
@@ -110,7 +105,7 @@ const ResgiterPage = () => {
           type="submit"
           isLoading={isSubmitting}
           disabled={isSubmitting}
-          style={{ maxWidth: "300px", margin: "0 auto" }}
+          className="w-full max-w-[300px] mx-auto"
         >
           Resgiter
         </Button>
